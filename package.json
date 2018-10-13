@@ -21,5 +21,15 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "ajv": "^6.5.4",
+    "ajv-keywords": "^3.2.0",
+    "file-loader": "^2.0.0",
+    "prop-types": "^15.6.2",
+    "react-google-maps": "^9.4.5",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "ttf-loader": "^1.0.2"
+  }
 }
