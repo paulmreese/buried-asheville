@@ -53,17 +53,23 @@ class App extends Component {
         checkinResults.response.venues[0].id
       ).then(
         photoResults => {
-          const prefix = photoResults.response.photos.items[0].prefix
+          let {prefix, suffix} = ''
           const size = '500x500'
-          const suffix = photoResults.response.photos.items[0].suffix
-          marker.imageLink = `${prefix}${size}${suffix}`
+          if (photoResults.response.photos) {
+            prefix = photoResults.response.photos.items[0].prefix
+            suffix = photoResults.response.photos.items[0].suffix
+            marker.imageLink = `${prefix}${size}${suffix}`
 
-          marker.imageCredit = ``
-          const firstName = photoResults.response.photos.items[0].user.firstName
-          marker.imageCredit = `${firstName} `
-          if (photoResults.response.photos.items[0].user.lastName) {
-            const lastName = photoResults.response.photos.items[0].user.lastName
-            marker.imageCredit += `${lastName}`
+            console.log(photoResults)
+            marker.imageCredit = ``
+            const firstName = photoResults.response.photos.items[0].user.firstName
+            marker.imageCredit = `${firstName} `
+            if (photoResults.response.photos.items[0].user.lastName) {
+              const lastName = photoResults.response.photos.items[0].user.lastName
+              marker.imageCredit += `${lastName}`
+            }
+          } else {
+            throw new Error('Foursquare API error')
           }
         }
       ).catch(
