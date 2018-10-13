@@ -60,7 +60,6 @@ class App extends Component {
             suffix = photoResults.response.photos.items[0].suffix
             marker.imageLink = `${prefix}${size}${suffix}`
 
-            console.log(photoResults)
             marker.imageCredit = ``
             const firstName = photoResults.response.photos.items[0].user.firstName
             marker.imageCredit = `${firstName} `
