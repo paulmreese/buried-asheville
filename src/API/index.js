@@ -47,19 +47,24 @@ class SquareHelper {
     }
 
     return fetch(`${SquareHelper.baseUrl()}${endPoint}?${SquareHelper.auth()}&` +
-    `${SquareHelper.urlBuilder(urlParams)}`, requestData).then(res => res.json())
+    `${SquareHelper.urlBuilder(urlParams)}`, requestData)
+    .then(res => res.json()).catch(
+      SquareHelper.hasError = true
+    )
 
   }
 }
+
+SquareHelper.hasError = false;
 
 export default class SquareAPI {
   static search(urlParams) {
     return SquareHelper.simpleFetch('/venues/search', 'GET', urlParams)
   }
-  static getVenueDetails(VENUE_ID) {
-    return SquareHelper.simpleFetch(`/venues/${VENUE_ID}`, 'GET')
-  }
   static getVenuePhotos(VENUE_ID) {
     return SquareHelper.simpleFetch(`/venues/${VENUE_ID}/photos`, 'GET')
+  }
+  static getErrorStatus() {
+    return SquareHelper.hasError
   }
 }

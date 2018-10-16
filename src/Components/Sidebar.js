@@ -36,6 +36,7 @@ class Sidebar extends Component {
         <hr/>
         <input
           type="text"
+          role="search"
           className="filter-input"
           placeholder="Filter locations by name..."
           value={filterQuery}

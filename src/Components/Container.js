@@ -31,6 +31,7 @@ const MyMapComponent = withScriptjs(
         panControl: false,
         rotateControl: false,
         fullscreenControl: false}}
+
     >
 
       {props.isMarkerShown && showingMarkers.map((marker) => (

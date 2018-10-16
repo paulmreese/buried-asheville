@@ -93,6 +93,7 @@ ul li button:hover {
   top: 123px;
   right: -65px;
   font-size: 26px;
+  line-height: 33px;
   background-color: rgba(80, 80, 80, 0.85);
   padding: 30px 20px;
   border:2px solid #222;

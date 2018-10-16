@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import MapErrorMessage from './MapErrorMessage'
+
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -15,7 +17,7 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>API Error: Something went wrong.</h1>;
+      return <MapErrorMessage />;
     }
     return this.props.children;
   }

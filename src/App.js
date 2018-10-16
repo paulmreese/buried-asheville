@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import ErrorBoundary from './Components/ErrorBoundary'
 import Map from './Components/Container';
+import MapErrorMessage from './Components/MapErrorMessage'
 import Sidebar from './Components/Sidebar';
 import Footer from './Components/Footer'
 import SquareAPI from './API/';
-
 
 class App extends Component {
   state = {
@@ -38,50 +38,53 @@ class App extends Component {
     ],
     showSidebar : false,
     filterQuery : '',
-    hideFoursquare : false
+    hideFoursquare : false,
+    mapsError : false
   }
 
   initializePhotos = () => {
-    const markers = this.state.markers.map((marker) => {
-      SquareAPI.search({
-        near : `${marker.location.lat},${marker.location.lng}`,
-        intent : 'checkin',
-        limit : '1'
-      }).then(
-        App.handleErrors
-      ).then(checkinResults => SquareAPI.getVenuePhotos(
-        checkinResults.response.venues[0].id
-      ).then(
-        photoResults => {
-          let {prefix, suffix} = ''
-          const size = '500x500'
-          if (photoResults.response.photos) {
-            prefix = photoResults.response.photos.items[0].prefix
-            suffix = photoResults.response.photos.items[0].suffix
-            marker.imageLink = `${prefix}${size}${suffix}`
+    if (SquareAPI.getErrorStatus() === true || this.state.mapsError === true) {
+      this.setState({hideFoursquare : true})
+    } else {
+      const markers = this.state.markers.map((marker) => {
+        SquareAPI.search({
+          near : `${marker.location.lat},${marker.location.lng}`,
+          intent : 'checkin',
+          limit : '1'
+        }).then(
+          App.handleErrors
+        ).then(checkinResults => SquareAPI.getVenuePhotos(
+          checkinResults.response.venues[0].id
+        )).then(
+          photoResults => {
+            let {prefix, suffix} = ''
+            const size = '500x500'
+            if (photoResults.response.photos !== undefined) {
+              prefix = photoResults.response.photos.items[0].prefix
+              suffix = photoResults.response.photos.items[0].suffix
+              marker.imageLink = `${prefix}${size}${suffix}`
 
-            marker.imageCredit = ``
-            const firstName = photoResults.response.photos.items[0].user.firstName
-            marker.imageCredit = `${firstName} `
-            if (photoResults.response.photos.items[0].user.lastName) {
-              const lastName = photoResults.response.photos.items[0].user.lastName
-              marker.imageCredit += `${lastName}`
+              marker.imageCredit = ``
+              const firstName = photoResults.response.photos.items[0].user.firstName
+              marker.imageCredit = `${firstName} `
+              if (photoResults.response.photos.items[0].user.lastName) {
+                const lastName = photoResults.response.photos.items[0].user.lastName
+                marker.imageCredit += `${lastName}`
+              }
+              this.setState({hideFoursquare : false})
+            } else {
+              this.setState({hideFoursquare : true})
             }
-          } else {
-            throw new Error('Foursquare API error')
           }
-        }
-      ).catch(
-        error => console.log(error) &&
-        this.setState({hideFoursquare : true})
-      )).catch(
-        this.setState({hideFoursquare : true})
-      )
-      return marker
-    })
-    this.setState({markers : Object.assign(
-      this.state.markers, markers
-    )})
+        ).catch(
+          this.setState({hideFoursquare : true})
+        )
+        return marker
+      })
+      this.setState({markers : Object.assign(
+        this.state.markers, markers
+      )})
+    }
   }
 
   closeOpenInfoWindows = () => {
@@ -107,9 +110,11 @@ class App extends Component {
   */
   handleErrors = (response) => {
     if (!response.ok) {
-        throw Error(response.statusText);
-    }
+      this.setState({ hideFoursquare : true})
+      throw Error(response.statusText);
+      }
     return response;
+
   }
 
   handleMarkerClick = (marker) => {
@@ -134,8 +139,23 @@ class App extends Component {
       this.setState({showSidebar : false})
   }
 
+  showError() {
+    this.setState({mapsError : true})
+
+  }
+
   componentWillMount() {
+    window.gm_authFailure = () => {
+      this.setState({mapsError : true})
+    }
+    if (!navigator.onLine) {
+      this.setState({mapsError : true})
+    }
     this.initializePhotos()
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
@@ -143,13 +163,21 @@ class App extends Component {
     return (
       <ErrorBoundary>
         <div className="App">
-          <Map
-            markers = {this.state.markers}
-            handleMarkerClick = {this.handleMarkerClick}
-            handleRedditToggle = {this.handleRedditToggle}
-            filterQuery = {this.state.filterQuery}
-            hideFoursquare = {this.state.hideFoursquare}
-          />
+          <ErrorBoundary>
+            {this.state.mapsError ?
+              <MapErrorMessage />
+              :
+              <Map
+                markers = {this.state.markers}
+                handleMarkerClick = {this.handleMarkerClick}
+                handleRedditToggle = {this.handleRedditToggle}
+                filterQuery = {this.state.filterQuery}
+                hideFoursquare = {this.state.hideFoursquare}
+                onError = {this.showError}
+              />
+
+            }
+          </ErrorBoundary>
           <Sidebar
             markers = {this.state.markers}
             filterQuery = {this.state.filterQuery}
