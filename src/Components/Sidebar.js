@@ -71,7 +71,7 @@ class Sidebar extends Component {
             <span>Read more:</span>
 
             <img
-              src="/Asheville-Citizen-Times-logo.png"
+              src="./Asheville-Citizen-Times-logo.png"
               alt="Article from Asheville Citizen-Times media group, part of the USA Today Network"
             />
 

@@ -48,7 +48,7 @@ const MyMapComponent = withScriptjs(
               <div className="infowindow">
                 <h3>{marker.title}</h3>
                 {!props.hideFoursquare ?
-                  (<div style={{width: '90%', position: 'relative', margin: '0 auto'}}>
+                  (<div className="image-container">
                     <img src={marker.imageLink}
                       alt={marker.title}
                       className="foursquare-image"

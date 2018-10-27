@@ -1,5 +1,6 @@
 {
   "name": "neighborhood-map",
+  "homepage" : "http://paulmreese.com/buried-asheville",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
