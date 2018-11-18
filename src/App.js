@@ -145,6 +145,10 @@ class App extends Component {
   }
 
   componentWillMount() {
+
+  }
+
+  componentDidMount() {
     window.gm_authFailure = () => {
       this.setState({mapsError : true})
     }
@@ -152,10 +156,6 @@ class App extends Component {
       this.setState({mapsError : true})
     }
     this.initializePhotos()
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
