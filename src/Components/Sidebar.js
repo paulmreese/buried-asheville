@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import escapeRegExp from 'escape-string-regexp'
+import React, { Component } from 'react';
+import escapeRegExp from 'escape-string-regexp';
 
 class Sidebar extends Component {
   state = {
@@ -75,10 +75,10 @@ class Sidebar extends Component {
               alt="Article from Asheville Citizen-Times media group, part of the USA Today Network"
             />
 
-        </div>
+          </div>
         </a>
       </div>
-    );
+    )
   }
 }
 

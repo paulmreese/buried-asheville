@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import ErrorBoundary from './Components/ErrorBoundary'
+import ErrorBoundary from './Components/ErrorBoundary';
 import Map from './Components/Container';
-import MapErrorMessage from './Components/MapErrorMessage'
+import MapErrorMessage from './Components/MapErrorMessage';
 import Sidebar from './Components/Sidebar';
-import Footer from './Components/Footer'
+import Footer from './Components/Footer';
 import SquareAPI from './API/';
 
 class App extends Component {
@@ -125,7 +125,6 @@ class App extends Component {
     )})
   }
 
-
   handleRedditToggle = (marker) => {
     !marker.showReddit ? marker.showReddit = true : marker.showReddit = false
     this.setState({ markers : Object.assign(
@@ -144,10 +143,6 @@ class App extends Component {
 
   }
 
-  componentWillMount() {
-
-  }
-
   componentDidMount() {
     window.gm_authFailure = () => {
       this.setState({mapsError : true})
@@ -159,7 +154,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <ErrorBoundary>
         <div className="App">
@@ -175,7 +169,6 @@ class App extends Component {
                 hideFoursquare = {this.state.hideFoursquare}
                 onError = {this.showError}
               />
-
             }
           </ErrorBoundary>
           <Sidebar

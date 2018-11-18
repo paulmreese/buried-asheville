@@ -91,7 +91,7 @@ const MyMapComponent = withScriptjs(
       ))}
     </GoogleMap>
   ))
-);
+)
 
 
 export default class Map extends Component {
@@ -121,6 +121,6 @@ export default class Map extends Component {
           hideFoursquare = {this.props.hideFoursquare}
         />
 
-    );
+    )
   }
 }
