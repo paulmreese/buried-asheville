@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import escapeRegExp from 'escape-string-regexp';
 
+import actLogo from '../img/Asheville-Citizen-Times-logo.png'
+
 class Sidebar extends Component {
   state = {
     isOpen : true
@@ -71,7 +73,7 @@ class Sidebar extends Component {
             <span>Read more:</span>
 
             <img
-              src="./Asheville-Citizen-Times-logo.png"
+              src={actLogo}
               alt="Article from Asheville Citizen-Times media group, part of the USA Today Network"
             />
 

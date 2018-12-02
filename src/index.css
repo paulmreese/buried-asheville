@@ -129,7 +129,7 @@ h3 {
   padding: 8px 28px 8px 8px;
   width: 80%;
   box-sizing: border-box;
-  background: white no-repeat 98% 4px/24px url('/buried-asheville/if-filter-icon.png');
+  background: white no-repeat 98% 4px/24px url(./img/if-filter-icon.png);
 }
 
 hr {
@@ -170,8 +170,8 @@ hr {
 }
 
 .infowindow button {
-  background: url('/buried-asheville/reddit-icon.png') 98.5%/30px no-repeat,
-   url('/buried-asheville/reddit-icon.png') 1.5%/30px no-repeat;
+  background: url(./img/reddit-icon.png) 98.5%/30px no-repeat,
+   url(./img/reddit-icon.png) 1.5%/30px no-repeat;
   margin: 15px auto 5px;
   width: 100%;
   box-sizing: border-box;

@@ -7,6 +7,7 @@ import {
   InfoWindow
 }  from 'react-google-maps';
 import escapeRegExp from 'escape-string-regexp'
+import foursquareLogo from '../img/Foursquare.png'
 
 const mapStyles = require("../Styles/mapStyles.json")
 
@@ -57,7 +58,7 @@ const MyMapComponent = withScriptjs(
                       Photo by: {marker.imageCredit}
                     </p>
                     <img
-                      src="./Foursquare.png"
+                      src={foursquareLogo}
                       alt="Foursquare"
                       className="foursquare-logo"/>
                   </div>)
